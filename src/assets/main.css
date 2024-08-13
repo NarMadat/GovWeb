@@ -1,0 +1,43 @@
+@import './base.css';
+
+
+
+
+
+@font-face {
+  font-family: 'Noto Sans Armenian';
+  font-display: swap;
+  src: url('/fonts/NotoSansArmenian-VariableFont_wdth,wght.woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-display: swap;
+  src: url('/fonts/NotoSans-VariableFont_wdth,wght.woff2');
+}
+
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/MaterialSymbolsOutlined.woff2') format('woff2');
+}
+
+* {
+  font-family: 'Noto Sans Armenian', 'Noto Sans', Arial, Helvetica, sans-serif!important;
+  word-break: break-word;
+}
+
+html {
+  @apply scroll-auto;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.2s;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}

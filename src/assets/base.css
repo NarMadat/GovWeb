@@ -1,0 +1,51 @@
+/* color palette from <https://github.com/vuejs/theme> */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+
+
+
+a.link-secondary {
+  @apply font-normal;
+}
+
+@layer base {
+  h1 {
+    @apply text-3xl md:text-[32px] lg:text-4xl xl:text-5xl font-bold !leading-tight;
+  }
+
+  h2 {
+    @apply text-[26px] lg:text-3xl xl:text-[40px] font-bold !leading-relaxed;
+  }
+
+  h3 {
+    @apply text-3xl font-semibold leading-snug;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  h5 {
+    @apply text-lg md:text-xl font-semibold !leading-relaxed;
+  }
+
+  h6 {
+    @apply text-sm md:text-base font-semibold;
+  }
+
+  a {
+    @apply text-primary cursor-pointer font-normal outline-none underline underline-offset-[3px] transition-shadow
+      hover:decoration-[3px]
+      focus:bg-accessibility focus:shadow-accessibilityBox focus:!text-white;
+  }
+
+  button, input, textarea {
+    @apply outline-none focus:shadow-accessibilityBox transition-shadow;
+  }
+}
