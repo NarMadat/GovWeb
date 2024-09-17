@@ -2,7 +2,6 @@
   "name": "gov-wizzard",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -11,12 +10,17 @@
     "test:e2e": "playwright test",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "start": "npm run dev",
+    "start:server": "node server/server.js",
+    "start:frontend": "npm run dev",
+    "start": "concurrently \"npm run start:server\" \"npm run start:frontend\"",
     "host": "vite --host"
   },
   "dependencies": {
+    "@vueuse/core": "^11.0.1",
+    "axios": "^1.7.4",
     "express": "^4.19.2",
     "pinia": "^2.1.7",
+    "use-fetch-api": "^1.1.0",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
@@ -29,6 +33,7 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
     "jsdom": "^24.1.0",
     "npm-run-all2": "^6.2.0",
     "postcss": "^8.4.39",

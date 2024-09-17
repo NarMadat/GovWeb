@@ -37,16 +37,23 @@
         </Button>
       </div>
     </div>
-  </template>
+</template>
   
-  <script setup>
+<script setup>
   import AppRadio from '../components/AppRadio.vue'
   import Button from '../components/AppButton.vue'
   import { useRouter } from 'vue-router'
   import AppIcon from '../components/AppIcon.vue'
-  import { ref } from 'vue'
+  import { ref, watch } from 'vue'
+  import { useUserStore } from '../stores/user.js'
+
+  const store = useUserStore();
   
   const picked = ref(null)
   
   const router = useRouter()
-  </script>
+  
+  watch(picked, (newValue) => {
+    store.type = newValue;
+  });
+</script>

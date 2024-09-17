@@ -1,122 +1,119 @@
 <template>
-    <div class="px-8 ml-40 py-4 mt-10">
-        <div class="w-full ">
-            <h3>Please wait</h3>
-        </div>
-
-        <div class=" load">
-            <div class="loader-container " v-if="isLoading">
-                <div class="loader"></div>
-                <p>Loading...</p>
-            </div>
-            <div v-else>
-                <p v-show="showDoneMessage">Done</p>
-            </div>
-        </div>
-        <div class="text_load flex flex-row gap-16">
-        <div>
-            <div class="animated-text">
-                <h3 class="text-xl flex items-center gap-1" style="animation-delay: 2s;">
-                  <AppIcon
-                    icon="check"
-                    size="24px"
-                    class="ml-2 text-button-default"
-                  />
-                  Build frame
-                </h3>
-            </div>
-            
-            <div class="animated-text">
-                <h3 class="mt-2 text-xl flex items-center gap-1" style="animation-delay: 4s;">
-                  <AppIcon
-                    icon="check"
-                    size="24px"
-                    class="ml-2 text-button-default"
-                  />
-                  Adding sections
-                </h3>
-            </div>
-            </div>
-
-            <div>
-            <div class="animated-text">
-                <h3 class="text-xl flex items-center gap-1" style="animation-delay: 6s;">
-                  <AppIcon
-                    icon="check"
-                    size="24px"
-                    class="ml-2 text-button-default"
-                  />
-                  Run domain
-                </h3>
-            </div>
-            <div class="animated-text">
-                <h3 class="mt-2 text-xl flex items-center gap-1" style="animation-delay: 8s;">
-                  <AppIcon
-                    icon="check"
-                    size="24px"
-                    class="ml-2 text-button-default"
-                  />
-                  Adding content
-                </h3>
-            </div>
-            </div>
-        </div>
+  <div class="px-8 ml-40 py-4 mt-10">
+    <div class="w-full">
+      <h3>Please wait</h3>
     </div>
+
+    <div class="load">
+      <div class="loader-container" v-if="isLoading">
+        <div class="progress-bar">
+          <div class="progress" :style="{ width: `${progress}%` }"></div>
+        </div>
+        <p class="ml-48">Loading...</p>
+      </div>
+      <div v-else>
+        <p v-show="showDoneMessage">Done</p>
+      </div>
+    </div>
+
+    <div class="text_load flex flex-row gap-16">
+      <div>
+        <div class="animated-text">
+          <h3 class="text-xl flex items-center gap-1" style="animation-delay: 2s;">
+            <AppIcon icon="check" size="24px" class="ml-2 text-button-default" />
+            Build frame
+          </h3>
+        </div>
+
+        <div class="animated-text">
+          <h3 class="mt-6 text-xl flex items-center gap-1" style="animation-delay: 4s;">
+            <AppIcon icon="check" size="24px" class="ml-2 text-button-default" />
+            Adding sections
+          </h3>
+        </div>
+      </div>
+
+      <div>
+        <div class="animated-text">
+          <h3 class="text-xl flex items-center gap-1" style="animation-delay: 6s;">
+            <AppIcon icon="check" size="24px" class="ml-2 text-button-default" />
+            Run domain
+          </h3>
+        </div>
+        <div class="animated-text">
+          <h3 class="mt-6 text-xl flex items-center gap-1" style="animation-delay: 8s;">
+            <AppIcon icon="check" size="24px" class="ml-2 text-button-default" />
+            Adding content
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import AppIcon from '../components/AppIcon.vue'
+import AppIcon from '../components/AppIcon.vue';
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const isLoading = ref(true);
 const showDoneMessage = ref(false);
+const progress = ref(0);
 const router = useRouter();
-const route = useRoute()
 
 onMounted(() => {
+  const loadingTime = 9000;
+  const increment = loadingTime / 150;
+
+  const progressInterval = setInterval(() => {
+    if (progress.value < 150) {
+      progress.value += 1;
+    } else {
+      clearInterval(progressInterval);
+    }
+  }, increment);
+
   setTimeout(() => {
     isLoading.value = false;
+    clearInterval(progressInterval);
     setTimeout(() => {
-      router.push('/done'); 
+      router.push('/done');
     }, 0);
-  }, 10000);
+  }, loadingTime);
 });
 </script>
 
 <style scoped>
 .text_load {
-    margin-top: 270px;
+  margin-top: 100px;
 }
 
 .load {
-    position: absolute;
-    margin-left: 200px;
-    top: -8%;
+  position: absolute;
+  top: 300px;
 }
 
 .loader-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  height: 50vh;
 }
 
-.loader {
-  border: 8px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top: 8px solid #3498db;
-  width: 60px;
-  height: 60px;
-  animation: spin 1s linear infinite;
+.progress-bar {
+  width: 450px; /* Установите фиксированную ширину прогресс-бара */
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
   margin-bottom: 10px;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.progress {
+  height: 100%;
+  background-color: #3498db;
+  transition: width 0.5s ease-in-out;
 }
-
 
 .animated-text h3 {
   opacity: 0;
@@ -128,11 +125,11 @@ onMounted(() => {
 }
 
 .animated-text:nth-child(2) h3 {
-  animation-delay: 1s; 
+  animation-delay: 1s;
 }
 
 .animated-text:nth-child(3) h3 {
-  animation-delay: 2s; 
+  animation-delay: 2s;
 }
 
 @keyframes fadeIn {

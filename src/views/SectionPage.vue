@@ -4,9 +4,8 @@
 
     <details v-for="(section, index) in sections" :key="index" class="mt-6">
       <summary>
-        <div class="flex flex-row inline-flex">
-          <Checkbox v-model="section.allChecked" />
-          <label class="ml-2 font-semibold">{{ section.title }}</label>
+        <div class="flex-row inline-flex ml-1">
+          <Checkbox v-model="section.allChecked" :label="section.title"/>
         </div>
       </summary>
       

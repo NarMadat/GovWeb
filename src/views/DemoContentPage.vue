@@ -44,10 +44,17 @@ import AppRadio from '../components/AppRadio.vue'
 import Button from '../components/AppButton.vue'
 import AppIcon from '../components/AppIcon.vue'
 import { useRouter, useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useUserStore } from '../stores/user.js'
+
+const store = useUserStore()
   
 const picked = ref('One') 
 
 const router = useRouter()
 const route = useRoute()
+
+watch(picked, (newValue) => {
+    store.demo = newValue;
+});
 </script>

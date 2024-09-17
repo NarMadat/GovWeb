@@ -36,13 +36,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import Input from '../components/AppInputField.vue'
 import Button from '../components/AppButton.vue'
 import Alert from '../components/AppAlert.vue'
 import { useRouter } from 'vue-router'
 import AppIcon from '../components/AppIcon.vue'
+import { useUserStore } from '../stores/user.js'
 
+const store = useUserStore()
 const router = useRouter()
 const title = ref('')
+
+watch(title, (newValue) => {
+    store.title = newValue;
+});
 </script>
